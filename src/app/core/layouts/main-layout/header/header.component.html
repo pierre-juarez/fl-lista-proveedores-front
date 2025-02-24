@@ -1,0 +1,52 @@
+<header class="header">
+  <div class="header-left">
+    <i class="fa-solid fa-handshake icon"></i>
+    <span class="logo">Sistema de Rebates</span>
+  </div>
+
+  <nav class="nav-menu" [class.active]="isMenuOpen">
+    <a href="#" class="active">Dashboard</a>
+    <a href="#" class="active">Usuarios</a>
+    <a href="#" class="active">Datos</a>
+  </nav>
+
+  <div class="header-right">
+    <button class="icon-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <button class="icon-button">
+      <i class="fa fa-bell"></i>
+    </button>
+    <div class="user-profile" (click)="toggleUserMenu()">
+        <img src="daniel.jpeg" alt="Usuario" class="user-avatar" />
+        <i class="fa fa-caret-down"></i>
+        <div class="user-menu" *ngIf="isUserMenuOpen">
+          <ul>
+            <li (click)="goToProfile()">Ver Perfil</li>
+            <li (click)="logout()">Cerrar Sesión</li>
+          </ul>
+        </div>
+      </div>
+  </div>
+
+  <!-- Icono de hamburguesa en móvil -->
+  <!-- <button class="hamburger-icon" (click)="toggleMenu()">
+      <i class="fa fa-bars"></i>
+    </button> -->
+</header>
+
+<section class="welcome-section">
+  <div class="left-section">
+    <div class="text">
+        <h2><strong>Hola, Juan Pérez</strong></h2>
+        <p>Revisa lo que ha estado sucediendo</p>
+    </div>
+    <div class="area">
+        <h2>Compras</h2>
+    </div>
+  </div>
+  <div class="action-buttons">
+    <button class="outline-button">Descargar Reporte</button>
+    <button class="solid-button">Registrar Nuevo Rebate</button>
+  </div>
+</section>

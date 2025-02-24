@@ -1,0 +1,33 @@
+<!-- src/app/login/login.component.html -->
+<div class="login-container">
+  <div class="login-card">
+    <!-- Título Login -->
+    <h2 class="login-title">Lista de Proveedores</h2>
+    <!-- Subtítulo Login -->
+    <h3 class="login-subtitle">¡Bienvenido de nuevo!</h3>
+    <!-- Formulario de login -->
+    <form class="login-form" autocomplete="on" [formGroup]="loginForm">
+    <div class="inputs-container">
+      <div class="input-group">
+        <input matInput type="text" placeholder="Usuario" required formControlName="code" class="border-black"
+          (input)="onInputChange($event)" class="input-login" />
+      </div>
+      <div class="input-group">
+        <input matInput [type]="showPassword ? 'text' : 'password'" id="password" required formControlName="password"
+          placeholder="Contraseña" class="input-login" />
+        <span (click)="togglePasswordVisibility()" class="icon-eye">
+          <i class="fa-solid {{ showPassword ? 'fa-eye-slash' : 'fa-eye' }}"></i>
+        </span>
+      </div>
+    </div>
+      <div class="remember-me">
+        <input type="checkbox" id="remember" formControlName="remember" />
+        <span class="remember-me-text">Mantener sesión iniciada</span>
+      </div>
+      <button class="custom-button" (click)="onSubmit()">Iniciar Sesión</button>
+      <div class="forgot-password">
+        <a (click)="onRecoverPassword('200ms', '200ms')">¿Olvidaste tu contraseña?</a>
+      </div>
+    </form>
+  </div>
+</div>

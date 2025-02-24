@@ -1,0 +1,178 @@
+$morado-800: #57348c;
+$morado-700: #7143b5;
+$morado-300: #bf94ff;
+$morado-50: #f5efff;
+
+$violet-500: #723F9B;
+
+$state-pending: #fbefb5;
+$state-approved: #d4e9c3;
+$state-cancel: #f8c1c5;
+
+$black: #000;
+$text-inactive: rgba($black, 0.87);
+$text-placeholder: rgba($black, 0.6);
+
+$title-color: #353337;
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #F5EFFF;
+}
+
+.login-card {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 360px;
+  text-align: center;
+}
+
+.login-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0 0 2rem 0;
+  color: $title-color;
+}
+
+.login-subtitle {
+  font-size: 1.1rem;
+  font-weight: normal;
+  margin: 0 0 2rem 0;
+  color: $title-color;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputs-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.67rem;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  border: 1px solid $text-inactive;
+  text-decoration: none;
+  outline: none;
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+}
+
+.input-login {
+  width: 90%;
+  padding: 0.84rem 0.85rem;
+  font-size: 1rem;
+  border: none;
+  outline: none;
+  font-family: 'Inter', sans-serif;
+}
+
+.input-login::placeholder {
+  font-size: 1rem;
+  color: $text-placeholder;
+}
+
+.icon-eye {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+  background: none;
+  color: #a5a5a5;
+}
+
+.icon-eye:hover {
+  color: #656565;
+}
+.remember-me {
+  display: flex;
+  align-items: center;
+  margin-top: 0.875rem;
+
+  input[type="checkbox"] {
+    appearance: none; // Quita los estilos nativos del checkbox
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    margin-right: 0.75rem;
+    cursor: pointer;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 4px;
+    border: 1px solid #6F359C;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+
+    &:checked {
+      background-color: #6F359C; // Color cuando está marcado
+      border-color: #6F359C;
+
+      &::before {
+        content: "✔"; // Agrega un check
+        color: white;
+        font-size: 1rem;
+      }
+    }
+
+    &:checked + .remember-me-text {
+      color: $morado-700;
+      font-weight: bold;
+    }
+  }
+
+  .remember-me-text {
+    color: #4B484E;
+    font-weight: normal;
+    transition: color 0.3s ease;
+  }
+}
+
+.custom-button {
+  margin: 2.5rem auto auto auto;
+  background-color: $violet-500;
+  padding: 0.5rem 1.5rem;
+  color: $morado-50;
+  width: 100%;
+  border: none;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+}
+
+.custom-button:hover {
+  background-color: $morado-800;
+  cursor: pointer;
+}
+
+.forgot-password {
+  margin-top: 2rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.forgot-password a:hover {
+  opacity: 80%;
+}
+
+.forgot-password a {
+  text-decoration: none;
+  color: #6F359C;
+  font-weight: 500;
+}

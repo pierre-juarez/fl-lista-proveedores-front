@@ -1,0 +1,234 @@
+$morado-800: #57348C; 
+$morado-700: #7143B5;
+$morado-600: #9156e8;  
+$morado-300: #BF94FF;
+$morado-50: #F5EFFF;
+
+$state-pending: #FBEFB5;
+$state-approved: #D4E9C3;
+$state-cancel: #F8C1C5;
+
+/* Estilos generales */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+    background: white;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    border: 1px solid #c9c9c9;
+  }
+
+  .icon {
+    color: $morado-700;
+    margin-right: 10px;
+    font-size: 30px;
+  }
+  
+  .header-left  {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  
+
+  .header-left .logo {
+    font-size: 18px;
+    font-weight: bold;
+    margin: auto 0;
+    color: $morado-700;
+  }
+  
+  .nav-menu {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .nav-menu a {
+    text-decoration: none;
+    color: #666;
+    font-weight: 500;
+  }
+  
+  .nav-menu .active {
+    color: $morado-700;
+    border-bottom: 1px solid $morado-700;
+    padding: 20px 30px;
+  }
+  
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .icon-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: #666;
+  }
+  
+  /* Estilos para el menú de usuario */
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    position: relative; /* Para que el menú se posicione correctamente */
+  }
+  
+  .user-menu {
+    position: absolute;
+    top: 35px;
+    right: 0;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    padding: 10px;
+    width: 150px;
+    z-index: 101; /* Asegura que el menú esté por encima de otros elementos */
+  }
+  
+  .user-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .user-menu li {
+    padding: 8px;
+    cursor: pointer;
+  }
+  
+  .user-menu li:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .user-avatar {
+    border-radius: 100%;
+    width: 24px;
+    height: fit-content;
+  }
+  
+  .welcome-section {
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 100px;
+    background: white;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2); /* Solo sombra hacia abajo */
+  }
+  
+  .welcome-section h2 {
+    font-size: 18px;
+    margin: 0;
+  }
+  
+  .welcome-section p {
+    color: #666;
+    margin: 5px 0 0;
+    font-size: 14px;
+  }
+
+  .left-section {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    align-items: center; 
+  }
+
+  .left-section .text {
+    padding-right: 30px;
+    border-right: 2px solid #666;
+  }
+
+  .left-section .text h2 {
+    font-size: 16px;
+  }
+
+  .left-section .text p {
+    font-size: 14px;
+  }
+
+  .left-section .area h2 {
+    font-weight: 400;
+    font-size: 16px;
+  }
+  
+  .action-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .outline-button {
+    background: $morado-50;
+    border: 1px solid $morado-600;
+    color: $morado-600;
+    padding: 14px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .solid-button {
+    background: $morado-700;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  /* Estilos móviles */
+  @media (max-width: 768px) {
+    .nav-menu {
+      display: none; /* Ocultamos el menú en móvil */
+      flex-direction: column;
+      gap: 10px;
+      position: absolute;
+      top: 60px;
+      right: 20px;
+      background-color: white;
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+      padding: 10px;
+      border-radius: 5px;
+    }
+  
+    .header-right {
+      display: none; /* Ocultamos los iconos en móvil */
+    }
+  
+    .hamburger-icon {
+      display: block;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 24px;
+      color: $morado-700;
+    }
+  
+    .header .hamburger-icon.active + .nav-menu {
+      display: flex; /* Mostramos el menú cuando se activa el icono de hamburguesa */
+    }
+  
+    .header-left .logo {
+      font-size: 16px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .header-left .logo {
+      font-size: 14px;
+    }
+    .welcome-section h2 {
+      font-size: 18px;
+    }
+    .outline-button, .solid-button {
+      padding: 6px 12px;
+    }
+  }
+  

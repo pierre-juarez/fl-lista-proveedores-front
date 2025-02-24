@@ -1,0 +1,129 @@
+$morado-800: #57348C; 
+$morado-700: #7143B5;  
+$morado-300: #BF94FF;
+$morado-50: #F5EFFF;
+
+$state-pending: #FBEFB5;
+$state-approved: #D4E9C3;
+$state-cancel: #F8C1C5;  
+  
+  .card-container {
+    width: 100%;
+    max-width: 600px;
+    background: #ffffff;
+    border-radius: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-body {
+    padding: 2rem;
+  }
+  
+  .title {
+    font-size: 20px;
+    text-align: center;
+    color: $morado-700;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+  }
+  
+  .content-wrapper {
+    width: 90%;
+    margin: 0 auto;
+  }
+  
+  .message {
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 16px;
+  }
+  
+  .email {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .button-wrapper {
+    text-align: center;
+    margin: 0 auto;
+  }
+  
+  .btn-obtener {
+    background: $morado-700;
+    color: #ffffff;
+    width: 100%;
+    border: none;
+    border-radius: 6px;
+    padding: 10px;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+  }
+  .btn-obtener:hover {
+    background: $morado-800;
+  }
+  
+  .btn-obtener:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .timer {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .input-wrapper {
+    margin-top: 10px;
+    width: 90%;
+    margin: 0 auto;
+  }
+  
+  .input-field {
+    width: 100%;
+  }
+  
+  .action-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .button-action {
+    text-align: center;
+    flex: 1;
+    padding: 0 5px;
+  }
+  
+  .btn-outline-danger,
+  .btn-outline-success {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .btn-outline-danger {
+    color: #dc3545;
+    border-color: #dc3545;
+  }
+  
+  .btn-outline-success {
+    color: #28a745;
+    border-color: #28a745;
+  }
+  
+  .btn-outline-danger:hover {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .btn-outline-success:hover {
+    background-color: #28a745;
+    color: white;
+  }
+  

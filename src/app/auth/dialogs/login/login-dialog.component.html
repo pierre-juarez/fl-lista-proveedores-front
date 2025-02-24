@@ -1,0 +1,58 @@
+
+<div class="container">
+  <div class="card-container">
+    <div class="card-body">
+      <h1 class="title">Recupera tu contraseña</h1>
+      <div mat-dialog-content>
+        <div class="content-wrapper">
+          <div class="message">
+            <p>El código se enviará a:</p>
+            <p class="email">{{ data.email }}</p>
+          </div>
+          <div *ngIf="!botonDeshabilitado" class="button-wrapper">
+            <button
+              type="button"
+              class="btn-obtener"
+              (click)="enviar_codigo()"
+              [disabled]="botonDeshabilitado"
+            >
+              Obtener código
+            </button>
+          </div>
+          <div *ngIf="botonDeshabilitado" class="timer">
+            Tiempo restante: {{ tiempoRestante }}
+          </div>
+        </div>
+
+        <div class="input-wrapper">
+          <mat-form-field class="input-field">
+            <mat-label>Código de Verificación</mat-label>
+            <input
+              matInput
+              [(ngModel)]="input_codigo"
+              maxlength="8"
+              [disabled]="DesabilitadoInputVerificador"
+              name="inputverificador"
+              id="inputverificador"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+      <div mat-dialog-actions class="action-buttons">
+        <div class="button-action" (click)="salir()">
+          <button type="button" class="btn-outline-danger">Salir</button>
+        </div>
+        <div *ngIf="botonEnviarHabilitado" class="button-action">
+          <button
+            (click)="validar_codigo()"
+            type="button"
+            class="btn-outline-success"
+            [disabled]="!botonEnviarHabilitado"
+          >
+            Enviar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
