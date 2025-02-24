@@ -3,8 +3,6 @@ $morado-700: #7143b5;
 $morado-300: #bf94ff;
 $morado-50: #f5efff;
 
-$violet-500: #723F9B;
-
 $state-pending: #fbefb5;
 $state-approved: #d4e9c3;
 $state-cancel: #f8c1c5;
@@ -101,6 +99,7 @@ $title-color: #353337;
   display: flex;
   align-items: center;
   margin-top: 0.875rem;
+  margin-bottom: 2.5rem;
 
   input[type="checkbox"] {
     appearance: none; // Quita los estilos nativos del checkbox
@@ -140,25 +139,6 @@ $title-color: #353337;
     font-weight: normal;
     transition: color 0.3s ease;
   }
-}
-
-.custom-button {
-  margin: 2.5rem auto auto auto;
-  background-color: $violet-500;
-  padding: 0.5rem 1.5rem;
-  color: $morado-50;
-  width: 100%;
-  border: none;
-  text-decoration: none;
-  border-radius: 6px;
-  font-size: 1rem;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 600;
-}
-
-.custom-button:hover {
-  background-color: $morado-800;
-  cursor: pointer;
 }
 
 .forgot-password {

@@ -24,7 +24,7 @@
         <input type="checkbox" id="remember" formControlName="remember" />
         <span class="remember-me-text">Mantener sesión iniciada</span>
       </div>
-      <button class="custom-button" (click)="onSubmit()">Iniciar Sesión</button>
+      <custom-button (clicked)="onSubmit()" text="Iniciar Sesión" />
       <div class="forgot-password">
         <a (click)="onRecoverPassword('200ms', '200ms')">¿Olvidaste tu contraseña?</a>
       </div>

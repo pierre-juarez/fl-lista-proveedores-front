@@ -1,0 +1,21 @@
+$violet-500: #723f9b;
+$morado-800: #57348c;
+$morado-50: #f5efff;
+
+.custom-button {
+  background-color: $violet-500;
+  padding: 0.5rem 1.5rem;
+  color: $morado-50;
+  width: 100%;
+  border: none;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+}
+
+.custom-button:hover {
+  background-color: $morado-800;
+  cursor: pointer;
+}

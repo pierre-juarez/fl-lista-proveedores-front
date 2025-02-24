@@ -1,0 +1,253 @@
+$title-color: #353337;
+$black-400: #6f6d71;
+$black-300: #787679;
+$table-color: #f6f8fa;
+$table-border: rgba(#a0a0a0, 0.32);
+
+.container {
+  padding-inline: 8.4375rem;
+  padding-top: 3.5rem;
+}
+
+.container-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  font-size: 1.75rem;
+  font-weight: bold;
+  color: $title-color;
+  margin: 0;
+}
+
+.search-container {
+  background-color: $table-color;
+  border-radius: 8px 8px 0 0;
+  border: 0.8px solid $table-border;
+  margin-top: 2rem;
+  border-bottom: none;
+  padding-bottom: 1rem;
+}
+
+.search-input {
+  background-color: $table-color;
+  border-radius: 8px 8px 0 0;
+  margin-top: 2rem;
+  display: flex;
+  position: relative;
+  padding-left: 12px;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 1rem 0px;
+  max-width: 415px;
+
+  input {
+    width: 100%;
+    padding: 10px 40px 10px 20px;
+    border-radius: 1.875rem;
+    border: 2px solid $table-border;
+    font-style: italic;
+    font-family: "Poppins", sans-serif;
+    font-size: 1rem;
+  }
+
+  input::placeholder {
+    color: $black-400;
+  }
+
+  .search-icon {
+    position: absolute;
+    right: 15px;
+    font-size: 20px;
+    transform: translateY(-50%);
+    top: 50%;
+    color: $black-300;
+  }
+
+  input:focus {
+    outline: none; /* Elimina el contorno azul */
+    box-shadow: none; /* Si tiene un shadow, lo elimina */
+  }
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+}
+
+th {
+  background: $table-color !important;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  color: $title-color;
+  border: 1px solid $table-border;
+}
+
+td {
+  border: 1px solid $table-border;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  font-weight: normal;
+  color: #302e32;
+}
+
+.title-color {
+  color: $title-color;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.estado-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  padding-right: 8px;
+  padding-left: 8px;
+
+  span {
+    margin-left: 0.75rem;
+  }
+
+  i {
+    font-size: 0.85rem;
+  }
+}
+
+.active {
+  background: #d4e9c3;
+  color: #3f6621;
+}
+
+.inactive {
+  background: #f8c1c5;
+  color: #7f1e25;
+}
+
+.mail-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 600px;
+
+  .mail-text {
+    flex: 1;
+    min-width: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .counter-mail {
+    background-color: #e1cdff;
+    color: #6f359c;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 6px 6.5px;
+    border-radius: 6px;
+    flex-shrink: 0;
+  }
+}
+
+.black-color {
+  color: #000;
+}
+
+.action-icon {
+  font-size: 1.125rem;
+}
+
+mat-paginator {
+  background-color: $table-color;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  color: $title-color;
+}
+
+::ng-deep .mat-sort-header-arrow {
+  opacity: 1 !important;
+  transform: none !important;
+  color: $title-color !important;
+}
+
+::ng-deep .custom-menu {
+  background-color: #fff !important;
+  border-radius: 4px;
+}
+
+::ng-deep .custom-menu .mat-mdc-menu-item {
+  color: #000 !important;
+  transition: background-color 0.3s ease-in-out;
+}
+
+::ng-deep .custom-menu .mat-mdc-menu-item:hover {
+  background-color: #e0e0e0  !important;
+}
+
+::ng-deep .custom-menu .mat-mdc-menu-item .mat-mdc-menu-item-text {
+  font-weight: 400;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.pr-12{
+  padding-right: 12px;
+}
+
+/* Sidebar flotante */
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 350px;
+  height: 100vh;
+  background: white;
+  box-shadow: -3px 0px 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  z-index: 1001;
+  transform: translateX(100%);
+  animation: slide-in 0.3s forwards;
+}
+
+/* Animación de apertura */
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Fondo oscuro cuando el sidebar está abierto */
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+/* Botón de cierre */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  border: none;
+  background: none;
+  font-size: 20px;
+  cursor: pointer;
+}

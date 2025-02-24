@@ -1,0 +1,82 @@
+<div class="container">
+  <div class="container-title">
+    <h2 class="title">Lista de Proveedores</h2>
+    <custom-button (clicked)="openSidebar()" icon="plus" text="Agregar nuevo proveedor" />
+  </div>
+  <div class="search-container">
+    <div class="search-input">
+      <input matInput (keyup)="applyFilter(input.value)" #input
+        placeholder="Buscar por ID, proveedor, nombre, correo..." />
+      <i class="fa-solid fa-magnifying-glass search-icon"></i>
+    </div>
+  </div>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+    <!-- ID -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+      <td mat-cell *matCellDef="let element" class="title-color">{{ element.id }}</td>
+    </ng-container>
+    <!-- Nombre -->
+    <ng-container matColumnDef="nombre">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>NOMBRE</th>
+      <td mat-cell *matCellDef="let element">{{ element.nombre }}</td>
+    </ng-container>
+    <!-- Estado -->
+    <ng-container matColumnDef="estado">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>ESTADO</th>
+      <td mat-cell *matCellDef="let element">
+        <div class="estado-container"
+          [ngClass]="{'active': element.estado === 'Activo', 'inactive': element.estado === 'Inactivo'}">
+          <i class="fa-regular"
+            [ngClass]="{'fa-circle-check': element.estado === 'Activo', 'fa-circle-xmark': element.estado === 'Inactivo'}"></i>
+          <span> {{ element.estado }} </span>
+        </div>
+      </td>
+    </ng-container>
+    <!-- Correos -->
+    <ng-container matColumnDef="correos">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>CORREOS</th>
+      <td mat-cell *matCellDef="let element">
+        <div class="mail-container">
+          <span class="mail-text"> {{ element.correos }}</span>
+          <span *ngIf="element.numberMail > 2" class="counter-mail">+{{element.numberMail - 2}}</span>
+        </div>
+      </td>
+    </ng-container>
+    <!-- Acción -->
+    <ng-container matColumnDef="accion">
+      <th mat-header-cell *matHeaderCellDef class="text-center">ACCIÓN</th>
+      <td mat-cell *matCellDef="let element" class="text-center ">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <i class="fa-solid fa-ellipsis-vertical black-color action-icon"></i>
+        </button>
+        <mat-menu #menu="matMenu" class="custom-menu">
+          <button mat-menu-item (click)="viewDetail(element)">
+            <i class="fa-regular fa-eye pr-12"></i> Ver detalle </button>
+          <button mat-menu-item (click)="edit(element)">
+            <i class="fa-solid fa-pencil pr-12"></i> Editar </button>
+        </mat-menu>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[ 10, 20]" showFirstLastButtons></mat-paginator>
+</div>
+<!-- Sidebar flotante fuera del container -->
+<div class="sidebar-overlay" *ngIf="isSidebarOpen" (click)="closeSidebar()"></div>
+<div class="sidebar" *ngIf="isSidebarOpen">
+  <button class="close-btn" (click)="closeSidebar()">✖</button>
+  <h3>Agregar Nuevo Proveedor</h3>
+  <form>
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre</mat-label>
+      <input matInput placeholder="Nombre del proveedor" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Correo</mat-label>
+      <input matInput type="email" placeholder="Correo del proveedor" />
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">Guardar</button>
+  </form>
+</div>
