@@ -1,4 +1,9 @@
-import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  HostListener,
+  ViewChild,
+} from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -40,28 +45,38 @@ export class ListProveedoresComponent {
     console.log('Proveedores:', this.proveedores);
   }
 
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    if (
+      !this.isSidebarAddOpen ||
+      !this.isSidebarEditOpen ||
+      !this.isSidebarViewOpen
+    ) {
+      document.documentElement.classList.remove('no-scroll');
+    }
+  }
+
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   openAddSidebar() {
-    console.log('Abriendo ADD sidebar desde loader');
+    document.documentElement.classList.add('no-scroll');
     this.isSidebarAddOpen = true;
-    console.log('Sidebar abierto?', this.isSidebarAddOpen);
   }
 
   closeAddSidebar() {
-    console.log('Cerrando ADD sidebar');
+    document.documentElement.classList.remove('no-scroll');
     this.isSidebarAddOpen = false;
   }
 
   closeViewSidebar() {
-    console.log('Cerrando VIEW sidebar');
+    document.documentElement.classList.remove('no-scroll');
     this.isSidebarViewOpen = false;
   }
 
   closeEditSidebar() {
-    console.log('Cerrando EDIT sidebar');
+    document.documentElement.classList.remove('no-scroll');
     this.isSidebarEditOpen = false;
   }
 
@@ -72,14 +87,13 @@ export class ListProveedoresComponent {
   }
 
   viewDetail(element: any) {
-    console.log('Detalle de:', element);
-    console.log('Abriendo VIEW sidebar desde loader');
+    document.documentElement.classList.add('no-scroll');
     this.isSidebarViewOpen = true;
     console.log('Sidebar abierto?', this.isSidebarViewOpen);
   }
 
   edit(element: any) {
-    console.log('Editando:', element);
+    document.documentElement.classList.add('no-scroll');
     this.isSidebarEditOpen = true;
   }
 

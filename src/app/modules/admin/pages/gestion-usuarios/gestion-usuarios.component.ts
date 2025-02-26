@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, HostListener, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSidenav } from '@angular/material/sidenav';
 import { MatSort } from '@angular/material/sort';
@@ -34,27 +34,42 @@ export class GestionUsuariosComponent {
     this.dataSource.sort = this.sort;
   }
 
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    if (!this.isSidebarAddOpen || !this.isSidebarEditOpen) {
+      document.documentElement.classList.remove('no-scroll');
+    }
+  }
+
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   edit(element: any) {
+    document.documentElement.classList.add('no-scroll');
+
     this.isSidebarEditOpen = true;
     console.log('Editando:', element);
   }
 
   openAddSidebar() {
+    document.documentElement.classList.add('no-scroll');
+
     console.log('Abriendo ADD sidebar desde loader');
     this.isSidebarAddOpen = true;
     console.log('Sidebar abierto?', this.isSidebarAddOpen);
   }
 
   closeAddSidebar() {
+    document.documentElement.classList.remove('no-scroll');
+
     console.log('Cerrando ADD sidebar');
     this.isSidebarAddOpen = false;
   }
 
   closeEditSidebar() {
+    document.documentElement.classList.remove('no-scroll');
+
     console.log('Cerrando EDIT sidebar');
     this.isSidebarEditOpen = false;
   }
@@ -103,6 +118,38 @@ const LIST_USERS = [
   },
   {
     id: 6,
+    rol: 'Visor',
+    nombre: 'Juan Perez Alvarez',
+    email: 'juanperez@footloose.pe',
+    lastUpdated: '2023-01-01',
+    status: 'Activo',
+  },
+  {
+    id: 7,
+    rol: 'Admin',
+    nombre: 'Juan Perez Alvarez',
+    email: 'juanperez@footloose.pe',
+    lastUpdated: '2023-01-01',
+    status: 'Activo',
+  },
+  {
+    id: 8,
+    rol: 'Visor',
+    nombre: 'Juan Perez Alvarez',
+    email: 'juanperez@footloose.pe',
+    lastUpdated: '2023-01-01',
+    status: 'Activo',
+  },
+  {
+    id: 9,
+    rol: 'Admin',
+    nombre: 'Juan Perez Alvarez',
+    email: 'juanperez@footloose.pe',
+    lastUpdated: '2023-01-01',
+    status: 'Activo',
+  },
+  {
+    id: 10,
     rol: 'Visor',
     nombre: 'Juan Perez Alvarez',
     email: 'juanperez@footloose.pe',
