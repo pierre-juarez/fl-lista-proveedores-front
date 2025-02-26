@@ -6,7 +6,7 @@ import { HeaderComponent } from './main-layout/header/header.component'; // Aseg
 
 @NgModule({
   // HeaderComponent
-  declarations: [MainLayoutComponent], // Componentes que pertenecen a este layout
+  declarations: [MainLayoutComponent, HeaderComponent], // Componentes que pertenecen a este layout
   imports: [
     CommonModule,
     RouterModule, // Permite que el layout cargue sus rutas hijas

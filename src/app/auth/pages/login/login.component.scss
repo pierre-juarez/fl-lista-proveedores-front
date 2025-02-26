@@ -15,10 +15,11 @@ $title-color: #353337;
 
 .login-container {
   display: flex;
-  justify-content: center;
+  justify-content: stretch;
   align-items: center;
   height: 100vh;
-  background-color: #F5EFFF;
+  background-color: #f5efff;
+  flex-direction: column;
 }
 
 .login-card {
@@ -76,7 +77,7 @@ $title-color: #353337;
   font-size: 1rem;
   border: none;
   outline: none;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 .input-login::placeholder {
@@ -110,7 +111,7 @@ $title-color: #353337;
     width: 1.5rem;
     height: 1.5rem;
     border-radius: 4px;
-    border: 1px solid #6F359C;
+    border: 1px solid #6f359c;
     background-color: white;
     display: flex;
     align-items: center;
@@ -118,8 +119,8 @@ $title-color: #353337;
     transition: background-color 0.3s ease, border-color 0.3s ease;
 
     &:checked {
-      background-color: #6F359C; // Color cuando está marcado
-      border-color: #6F359C;
+      background-color: #6f359c; // Color cuando está marcado
+      border-color: #6f359c;
 
       &::before {
         content: "✔"; // Agrega un check
@@ -135,7 +136,7 @@ $title-color: #353337;
   }
 
   .remember-me-text {
-    color: #4B484E;
+    color: #4b484e;
     font-weight: normal;
     transition: color 0.3s ease;
   }
@@ -153,6 +154,12 @@ $title-color: #353337;
 
 .forgot-password a {
   text-decoration: none;
-  color: #6F359C;
+  color: #6f359c;
   font-weight: 500;
+}
+
+.header {
+  background-color: #313f4f;
+  height: 4rem;
+  width: 100%;
 }

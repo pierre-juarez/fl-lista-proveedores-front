@@ -29,6 +29,7 @@ import { MaterialModule } from './modules/material.module';
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+  
 
     FormsModule, // ⚠️ Necesario para [(ngModel)]
     ReactiveFormsModule, // ⚠️ Necesario para formGroup

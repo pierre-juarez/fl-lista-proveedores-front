@@ -10,17 +10,10 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import {MatToolbarModule} from '@angular/material/toolbar';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
-  declarations: [
-    LoginComponent,
-    LoginDialog,
-    RecoveryPasswordComponent,
-  ],
-  imports: [
-    AuthRoutingModule,
-    SharedModule
-  ],
+  declarations: [LoginComponent, LoginDialog, RecoveryPasswordComponent],
+  imports: [AuthRoutingModule, SharedModule],
 })
 export class AuthModule {}
