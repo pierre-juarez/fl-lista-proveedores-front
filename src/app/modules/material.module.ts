@@ -12,6 +12,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSelectModule } from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatOptionModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [],
@@ -29,6 +31,8 @@ import { MatMenuModule } from '@angular/material/menu';
     MatSidenavModule,
     MatSelectModule,
     MatMenuModule,
+    MatDialogModule,
+    MatOptionModule,
   ],
   exports: [
     MatButtonModule,
@@ -43,6 +47,8 @@ import { MatMenuModule } from '@angular/material/menu';
     MatSidenavModule,
     MatSelectModule,
     MatMenuModule,
+    MatDividerModule,
+    MatOptionModule,
   ],
 })
 export class MaterialModule {}

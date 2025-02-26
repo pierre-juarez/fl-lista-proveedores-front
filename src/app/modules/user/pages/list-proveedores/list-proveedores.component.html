@@ -1,7 +1,7 @@
 <div class="container">
   <div class="container-title">
     <h2 class="title">Lista de Proveedores</h2>
-    <custom-button (clicked)="openSidebar()" icon="plus" text="Agregar nuevo proveedor" />
+    <custom-button (clicked)="openAddSidebar()" icon="plus" text="Agregar nuevo proveedor" />
   </div>
   <div class="search-container">
     <div class="search-input">
@@ -64,19 +64,273 @@
   <mat-paginator [pageSizeOptions]="[ 10, 20]" showFirstLastButtons></mat-paginator>
 </div>
 <!-- Sidebar flotante fuera del container -->
-<div class="sidebar-overlay" *ngIf="isSidebarOpen" (click)="closeSidebar()"></div>
-<div class="sidebar" *ngIf="isSidebarOpen">
-  <button class="close-btn" (click)="closeSidebar()">✖</button>
-  <h3>Agregar Nuevo Proveedor</h3>
-  <form>
-    <mat-form-field appearance="outline">
-      <mat-label>Nombre</mat-label>
-      <input matInput placeholder="Nombre del proveedor" />
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Correo</mat-label>
-      <input matInput type="email" placeholder="Correo del proveedor" />
-    </mat-form-field>
-    <button mat-raised-button color="primary" type="submit">Guardar</button>
-  </form>
+<div class="sidebar-overlay" *ngIf="isSidebarAddOpen"></div>
+<div class="sidebar" *ngIf="isSidebarAddOpen">
+  <div class="sidebar-header">
+    <h3 class="sidebar-title">Agregar Proveedor</h3>
+    <button class="close-btn" (click)="closeAddSidebar()">✖</button>
+  </div>
+  <div class="sidebar-body">
+    <div class="info">
+      <div class="info-contacto">
+        <h4>Contacto:</h4>
+        <h4>ID: 10</h4>
+      </div>
+      <div class="info-status">
+        <div class="estado-container sidebar-status"
+          [ngClass]="{'active': isActive === true, 'inactive': isActive === false}">
+          <i class="fa-regular"
+            [ngClass]="{'fa-circle-check': isActive === true, 'fa-circle-xmark': isActive === false}"></i>
+          <span> {{ isActive ? 'Activo' : 'Inactivo' }} </span>
+        </div>
+        <toggle-custom [(checked)]="isActive" />
+      </div>
+    </div>
+    <div class="container-data">
+      <mat-form-field appearance="outline">
+        <mat-label>Proveedor</mat-label>
+        <mat-select [(value)]="proveedorSeleccionado">
+          <mat-option *ngFor="let proveedor of proveedores" [value]="proveedor.id"> {{ proveedor.value }} </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <p>{{ proveedores[0].value }}</p>
+      <mat-form-field>
+        <mat-label>Select me</mat-label>
+        <mat-select>
+          <mat-option value="option">Option</mat-option>
+          <mat-option value="option1">Option1</mat-option>
+        </mat-select>
+        <mat-hint align="end">Here's the dropdown arrow ^</mat-hint>
+      </mat-form-field>
+      <div class="correos-container">
+        <span class="label-title">Correos (0)</span>
+        <a class="correos-add" (click)="addEmail()">+ Agregar</a>
+      </div>
+      <mat-form-field class="custom-field" appearance="outline">
+        <mat-label>Correo</mat-label>
+        <input matInput placeholder="Correo" type="email">
+      </mat-form-field>
+      <span class="marcas-title label-title">Marcas (0)</span>
+      <mat-form-field appearance="outline">
+        <mat-label>Marca</mat-label>
+        <mat-select [(value)]="proveedorSeleccionado">
+          <mat-option *ngFor="let proveedor of proveedores" [value]="proveedor.id"> {{ proveedor.value }} </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="periocidad-container">
+      <span class="label-title">Periodicidad</span>
+      <mat-form-field class="custom-field" appearance="outline">
+        <mat-label>Inicio</mat-label>
+        <input matInput>
+      </mat-form-field>
+      <div class="periocidad-repeat">
+        <mat-form-field class="custom-field" appearance="outline">
+          <mat-label>Repetir cada</mat-label>
+          <input matInput placeholder="Correo" type="email">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>semana</mat-label>
+          <mat-select [(value)]="proveedorSeleccionado">
+            <mat-option *ngFor="let proveedor of proveedores" [value]="proveedor.id"> {{ proveedor.value }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="periocidad-days">
+        <span>D</span>
+        <span>L</span>
+        <span>M</span>
+        <span>M</span>
+        <span>J</span>
+        <span>V</span>
+        <span>S</span>
+      </div>
+      <mat-form-field class="custom-field" appearance="outline">
+        <mat-label>Fin</mat-label>
+        <input matInput>
+      </mat-form-field>
+    </div>
+  </div>
+  <!-- Footer -->
+  <mat-divider></mat-divider>
+  <div class="sidebar-footer">
+    <custom-button text="Guardar cambios" class="sidebar-button" />
+  </div>
+</div>
+<!-- Sidear View -->
+<div class="sidebar-overlay" *ngIf="isSidebarViewOpen"></div>
+<div class="sidebar" *ngIf="isSidebarViewOpen">
+  <div class="sidebar-header">
+    <h3 class="sidebar-title"> Ver detalle</h3>
+    <button class="close-btn" (click)="closeViewSidebar()">✖</button>
+  </div>
+  <div class="sidebar-body">
+    <div class="info">
+      <div class="info-contacto">
+        <h4>Contacto:</h4>
+        <h4>ID: 10</h4>
+      </div>
+      <div class="info-status">
+        <div class="estado-container sidebar-status"
+          [ngClass]="{'active': isActive === true, 'inactive': isActive === false}">
+          <i class="fa-regular"
+            [ngClass]="{'fa-circle-check': isActive === true, 'fa-circle-xmark': isActive === false}"></i>
+          <span> {{ isActive ? 'Activo' : 'Inactivo' }} </span>
+        </div>
+      </div>
+    </div>
+    <div class="container-data-edit">
+      <div class="flex">
+        <span class="data-title">Contacto: Adidas</span>
+        <span class="data-title">ID: 01</span>
+      </div>
+      <div class="container-data-group">
+        <span class="data-title">Datos del Proveedor</span>
+        <div class="flex">
+          <span class="data-subtitle">ADIDAS PERU S.A.C</span>
+          <span class="data-subtitle"><span class="data-subtitle-bold">RUC:</span> 1234567890123</span>
+        </div>
+      </div>
+      <div class="container-data-group">
+        <span class="data-title">Correos:</span>
+        <span class="data-subtitle">correo1&#64;adidas.com</span>
+        <span class="data-subtitle">correo2&#64;adidas.com</span>
+        <span class="data-subtitle">correo3&#64;adidas.com</span>
+      </div>
+      <div class="container-data-group">
+        <span class="data-title">Marcas:</span>
+        <span class="data-subtitle">Adidas</span>
+      </div>
+    </div>
+  </div>
+  <!-- Footer -->
+  <mat-divider></mat-divider>
+  <div class="sidebar-footer">
+  </div>
+</div>
+<!-- Sidebar edit -->
+<div class="sidebar-overlay" *ngIf="isSidebarEditOpen"></div>
+<div class="sidebar" *ngIf="isSidebarEditOpen">
+  <div class="sidebar-header">
+    <h3 class="sidebar-title">Editar Proveedor</h3>
+    <button class="close-btn" (click)="closeEditSidebar()">✖</button>
+  </div>
+  <div class="sidebar-body">
+    <div class="info">
+      <div class="info-contacto">
+        <h4>Contacto:</h4>
+        <h4>ID: 10</h4>
+      </div>
+      <div class="info-status">
+        <div class="estado-container sidebar-status"
+          [ngClass]="{'active': isActive === true, 'inactive': isActive === false}">
+          <i class="fa-regular"
+            [ngClass]="{'fa-circle-check': isActive === true, 'fa-circle-xmark': isActive === false}"></i>
+          <span> {{ isActive ? 'Activo' : 'Inactivo' }} </span>
+        </div>
+        <toggle-custom [(checked)]="isActive" />
+      </div>
+    </div>
+    <div class="container-data">
+      <mat-form-field class="custom-field" appearance="outline">
+        <mat-label>Proveedor</mat-label>
+        <input matInput readonly value="Adidas PERU SAC">
+      </mat-form-field>
+      <div class="container-data-proveedor">
+        <span class="data-title">Datos del Proveedor</span>
+        <div class="flex">
+          <span class="data-subtitle">ADIDAS PERU S.A.C</span>
+          <span class="data-subtitle"><span class="data-subtitle-bold">RUC:</span> 1234567890123</span>
+        </div>
+        <span class="data-subtitle"><span class="data-subtitle-bold">Nombre:</span> Adidas</span>
+      </div>
+      <div class="container-data-correos">
+        <div class="correos-container">
+          <span class="label-title">Correos (0)</span>
+          <a class="correos-add" (click)="addEmail()">+ Agregar</a>
+        </div>
+        <div class="correo-container-edit">
+          <mat-form-field class="custom-field" appearance="outline">
+            <mat-label>Correo</mat-label>
+            <input matInput placeholder="Correo" type="email">
+          </mat-form-field>
+          <div class="container-correo-icon">
+            <i class="fa-solid fa-pencil"></i>
+          </div>
+        </div>
+        <div class="correo-container-edit">
+          <mat-form-field class="custom-field" appearance="outline">
+            <mat-label>Correo</mat-label>
+            <input matInput placeholder="Correo" type="email">
+          </mat-form-field>
+          <div class="container-correo-icon">
+            <i class="fa-solid fa-pencil"></i>
+          </div>
+        </div>
+        <div class="correo-container-edit">
+          <mat-form-field class="custom-field" appearance="outline">
+            <mat-label>Correo</mat-label>
+            <input matInput placeholder="Correo" type="email">
+          </mat-form-field>
+          <div class="container-correo-icon">
+            <i class="fa-solid fa-pencil"></i>
+          </div>
+        </div>
+      </div>
+      <span class="marcas-title label-title">Marcas (0)</span>
+      <div class="container-marks">
+        <div class="checkbox-mark">
+          <input type="checkbox" id="mark1" />
+          <span class="checkbox-mark-text">Marca 1</span>
+        </div>
+        <div class="checkbox-mark">
+          <input type="checkbox" id="mark2" />
+          <span class="checkbox-mark-text">Marca 2</span>
+        </div>
+        <div class="checkbox-mark">
+          <input type="checkbox" id="mark3" />
+          <span class="checkbox-mark-text">Marca 3</span>
+        </div>
+      </div>
+    </div>
+    <div class="periocidad-container">
+      <span class="label-title">Periodicidad</span>
+      <mat-form-field class="custom-field" appearance="outline">
+        <mat-label>Inicio</mat-label>
+        <input matInput>
+      </mat-form-field>
+      <div class="periocidad-repeat">
+        <mat-form-field class="custom-field" appearance="outline">
+          <mat-label>Repetir cada</mat-label>
+          <input matInput placeholder="Correo" type="email">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>semana</mat-label>
+          <mat-select [(value)]="proveedorSeleccionado">
+            <mat-option *ngFor="let proveedor of proveedores" [value]="proveedor.id"> {{ proveedor.value }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="periocidad-days">
+        <span>D</span>
+        <span>L</span>
+        <span>M</span>
+        <span>M</span>
+        <span class="day-selected">J</span>
+        <span>V</span>
+        <span>S</span>
+      </div>
+      <mat-form-field class="custom-field" appearance="outline">
+        <mat-label>Fin</mat-label>
+        <input matInput>
+      </mat-form-field>
+    </div>
+  </div>
+  <!-- Footer -->
+  <mat-divider></mat-divider>
+  <div class="sidebar-footer">
+    <custom-button text="Guardar cambios" class="sidebar-button" />
+  </div>
 </div>

@@ -1,8 +1,13 @@
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSidenav } from '@angular/material/sidenav';
+
+interface Proveedor {
+  id: string;
+  value: string;
+}
 
 @Component({
   standalone: false,
@@ -12,7 +17,18 @@ import { MatSidenav } from '@angular/material/sidenav';
 export class ListProveedoresComponent {
   displayedColumns: string[] = ['id', 'nombre', 'estado', 'correos', 'accion'];
   dataSource = new MatTableDataSource(PROVEEDORES_DATA);
-  isSidebarOpen = false;
+  isSidebarAddOpen = false;
+  isSidebarEditOpen = false;
+  isSidebarViewOpen = false;
+  estadoMock = 'Inactivo';
+  proveedores: Proveedor[] = [
+    { id: '1', value: 'Proveedor A' },
+    { id: '2', value: 'Proveedor B' },
+    { id: '3', value: 'Proveedor C' },
+    { id: '4', value: 'Proveedor D' },
+  ];
+  proveedorSeleccionado: number | null = null;
+  isActive = false;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -21,28 +37,54 @@ export class ListProveedoresComponent {
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    console.log('Proveedores:', this.proveedores);
   }
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  openSidebar() {
-    console.log('Abriendo sidebar');
-    this.isSidebarOpen = true;
+  openAddSidebar() {
+    console.log('Abriendo ADD sidebar desde loader');
+    this.isSidebarAddOpen = true;
+    console.log('Sidebar abierto?', this.isSidebarAddOpen);
   }
 
-  closeSidebar() {
-    console.log('Cerrando sidebar');
-    this.isSidebarOpen = false;
+  closeAddSidebar() {
+    console.log('Cerrando ADD sidebar');
+    this.isSidebarAddOpen = false;
+  }
+
+  closeViewSidebar() {
+    console.log('Cerrando VIEW sidebar');
+    this.isSidebarViewOpen = false;
+  }
+
+  closeEditSidebar() {
+    console.log('Cerrando EDIT sidebar');
+    this.isSidebarEditOpen = false;
+  }
+
+  saveProveedor() {
+    console.log('Guardando proveedor...');
+    // Lógica para guardar
+    this.closeAddSidebar();
   }
 
   viewDetail(element: any) {
     console.log('Detalle de:', element);
+    console.log('Abriendo VIEW sidebar desde loader');
+    this.isSidebarViewOpen = true;
+    console.log('Sidebar abierto?', this.isSidebarViewOpen);
   }
 
   edit(element: any) {
     console.log('Editando:', element);
+    this.isSidebarEditOpen = true;
+  }
+
+  addEmail() {
+    console.log('Agregar correo clickeado');
   }
 }
 
