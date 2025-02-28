@@ -22,7 +22,6 @@ import { catchError, switchMap, tap, throwError } from 'rxjs';
 })
 export class ListProveedoresComponent {
   displayedColumns: string[] = ['id', 'nombre', 'estado', 'correos', 'accion'];
-  // dataSource = new MatTableDataSource(PROVEEDORES_DATA);
   dataSource = new MatTableDataSource<Proveedor>([]);
 
   isSidebarAddOpen = false;
@@ -35,6 +34,16 @@ export class ListProveedoresComponent {
 
   proveedorSeleccionado: number | null = null;
   isActive = false;
+  weekDays = [
+    { id: 0, letter: 'D' },
+    { id: 1, letter: 'L' },
+    { id: 2, letter: 'M' },
+    { id: 3, letter: 'M' },
+    { id: 4, letter: 'J' },
+    { id: 5, letter: 'V' },
+    { id: 6, letter: 'S' },
+  ];
+  selectedDays = new Set<number>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -58,18 +67,11 @@ export class ListProveedoresComponent {
     this.getProveedores();
   }
 
-  ngAfterViewInit() {
-    // Vuelve a renderizar cuando el tamaño esté listo
-    // setTimeout(() => {
-    //   this.mailContainer.nativeElement.offsetWidth;
-    // });
-  }
-
   getProveedores() {
     this.proveedoresService.getProveedores().subscribe(
       (proveedores) => {
         console.log('Proveedores recibidos:', proveedores);
-        this.dataSource = new MatTableDataSource(proveedores); // Asigna los datos a la tabla
+        this.dataSource = new MatTableDataSource(proveedores);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       },
@@ -124,11 +126,69 @@ export class ListProveedoresComponent {
 
   saveProveedor() {
     console.log('Guardando proveedor...');
-    // Lógica para guardar
+    // TODO: Lógica para guardar
     this.closeAddSidebar();
   }
 
+  dayMapping: { [key: string]: { id: number; letter: string } } = {
+    DOMINGO: { id: 0, letter: 'D' },
+    LUNES: { id: 1, letter: 'L' },
+    MARTES: { id: 2, letter: 'M' },
+    MIÉRCOLES: { id: 3, letter: 'M' },
+    JUEVES: { id: 4, letter: 'J' },
+    VIERNES: { id: 5, letter: 'V' },
+    SÁBADO: { id: 6, letter: 'S' },
+  };
+
+  reverseMapping: { [id: number]: string } = {
+    0: 'DOMINGO',
+    1: 'LUNES',
+    2: 'MARTES',
+    3: 'MIÉRCOLES',
+    4: 'JUEVES',
+    5: 'VIERNES',
+    6: 'SÁBADO',
+  };
+
+  loadDays(days: string) {
+    this.selectedDays.clear();
+    console.log('days:', days);
+
+    days.split(',').forEach((day) => {
+      const dayTrimmed = day.toUpperCase().trim();
+      const dayObj = this.dayMapping[dayTrimmed];
+      if (dayObj) {
+        this.selectedDays.add(dayObj.id);
+      }
+    });
+
+    console.log('selectedDays:', this.selectedDays);
+  }
+
+  toggleDay(id: number) {
+    if (this.selectedDays.has(id)) {
+      this.selectedDays.delete(id);
+    } else {
+      this.selectedDays.add(id);
+    }
+
+    if (this.proveedorSelected !== null) {
+      this.proveedorSelected.DIAS_EJECUCION = this.getDays();
+    }
+    console.log(
+      'Días de ejecución actualizados:',
+      this.proveedorSelected!.DIAS_EJECUCION
+    );
+  }
+
+  getDays(): string {
+    return Array.from(this.selectedDays)
+      .map((id) => this.reverseMapping[id] || id.toString())
+      .join(',');
+  }
+
   viewDetail(idProveedor: number) {
+    this.resetData();
     this.proveedoresService
       .getProveedorById(idProveedor)
       .pipe(
@@ -156,18 +216,40 @@ export class ListProveedoresComponent {
   }
 
   edit(idProveedor: number) {
-    this.proveedoresService.getProveedorById(idProveedor).subscribe(
-      (proveedor) => {
-        this.proveedorSelected = proveedor;
-        console.log('Proveedor detalle recibido:', proveedor);
-      },
-      (error) => {
-        console.error('Error al obtener proveedor:', error);
-      }
-    );
-    // this.proveedorSelected = element;
-    document.documentElement.classList.add('no-scroll');
-    this.isSidebarEditOpen = true;
+    this.resetData();
+    this.proveedoresService
+      .getProveedorById(idProveedor)
+      .pipe(
+        tap((proveedor) => {
+          this.proveedorSelected = proveedor;
+          this.correosList = proveedor.CORREO_PROVEEDOR.split(',');
+          this.loadDays(proveedor.DIAS_EJECUCION);
+          console.log('Proveedor edit recibido:', proveedor);
+          console.log('Días de ejecución:', proveedor.DIAS_EJECUCION);
+        }),
+        switchMap((proveedor) =>
+          this.proveedoresService.getMarcaById(proveedor.MARCAS)
+        ),
+        tap((marca) => {
+          this.marcaSelected = marca;
+          console.log('Marca edit recibido:', marca);
+          document.documentElement.classList.add('no-scroll');
+          this.isSidebarEditOpen = true;
+          console.log('Sidebar abierto?', this.isSidebarViewOpen);
+        }),
+        catchError((error) => {
+          console.error('Error en la carga de datos:', error);
+          return throwError(() => error);
+        })
+      )
+      .subscribe();
+  }
+
+  resetData() {
+    this.proveedorSelected = null;
+    this.marcaSelected = null;
+    this.correosList = [];
+    this.selectedDays.clear();
   }
 
   addEmail() {

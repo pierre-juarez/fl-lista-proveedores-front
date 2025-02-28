@@ -179,15 +179,14 @@
         <h4>Contacto:</h4>
         <h4>ID: {{ proveedorSelected?.ID_PROVEEDOR }}</h4>
       </div>
-      <!-- <div class="info-status">
+      <div class="info-status">
         <div class="estado-container sidebar-status"
-          [ngClass]="{'active': proveedorSeleceted?.ESTADO === 'ACTIVO', 'inactive': proveedorSelected?.ESTADO === 'INACTIVO'}">
+          [ngClass]="{'active': proveedorSelected?.ESTADO === 'ACTIVO', 'inactive': proveedorSelected?.ESTADO === 'INACTIVO'}">
+          <i class="fa-regular"
+            [ngClass]="{'fa-circle-check': proveedorSelected?.ESTADO === 'ACTIVO', 'fa-circle-xmark': proveedorSelected?.ESTADO === 'INACTIVO'}"></i>
+          <span> {{ proveedorSelected?.ESTADO === 'ACTIVO' ? 'Activo' : 'Inactivo' }} </span>
         </div>
-        <i class="fa-regular"
-          [ngClass]="{'fa-circle-check': proveedorSelected?.ESTADO === 'ACTIVO', 'fa-circle-xmark': proveedorSelected?.ESTADO === 'INACTIVO'}"></i>
-        <span> {{ proveedorSelected?.ESTADO }} </span>
-      </div> -->
-      <!-- </div> -->
+      </div>
     </div>
     <div class="container-data-edit">
       <div class="flex">
@@ -227,14 +226,14 @@
     <div class="info">
       <div class="info-contacto">
         <h4>Contacto:</h4>
-        <h4>ID: 10</h4>
+        <h4>ID: {{ proveedorSelected?.ID_PROVEEDOR }}</h4>
       </div>
       <div class="info-status">
         <div class="estado-container sidebar-status"
-          [ngClass]="{'active': isActive === true, 'inactive': isActive === false}">
+          [ngClass]="{'active': proveedorSelected?.ESTADO === 'ACTIVO', 'inactive': proveedorSelected?.ESTADO === 'FALSE'}">
           <i class="fa-regular"
-            [ngClass]="{'fa-circle-check': isActive === true, 'fa-circle-xmark': isActive === false}"></i>
-          <span> {{ isActive ? 'Activo' : 'Inactivo' }} </span>
+            [ngClass]="{'fa-circle-check': proveedorSelected?.ESTADO === 'ACTIVO', 'fa-circle-xmark': proveedorSelected?.ESTADO === 'FALSE'}"></i>
+          <span> {{ proveedorSelected?.ESTADO === 'ACTIVO' ? 'Activo' : 'Inactivo' }} </span>
         </div>
         <toggle-custom [(checked)]="isActive" />
       </div>
@@ -242,43 +241,26 @@
     <div class="container-data">
       <mat-form-field class="custom-field" appearance="outline">
         <mat-label>Proveedor</mat-label>
-        <input matInput readonly value="Adidas PERU SAC">
+        <input matInput readonly value="{{ proveedorSelected?.NOMBRE_PROVEEDOR }}">
       </mat-form-field>
       <div class="container-data-proveedor">
         <span class="data-title">Datos del Proveedor</span>
         <div class="flex">
-          <span class="data-subtitle">ADIDAS PERU S.A.C</span>
+          <span class="data-subtitle">{{ proveedorSelected?.NOMBRE_PROVEEDOR }}</span>
           <span class="data-subtitle"><span class="data-subtitle-bold">RUC:</span> $1234567890123$</span>
         </div>
-        <span class="data-subtitle"><span class="data-subtitle-bold">Nombre:</span> Adidas</span>
+        <span class="data-subtitle"><span class="data-subtitle-bold">Nombre:</span>
+          {{proveedorSelected?.NOMBRE_PROVEEDOR}}</span>
       </div>
       <div class="container-data-correos">
         <div class="correos-container">
-          <span class="label-title">Correos (0)</span>
+          <span class="label-title">Correos ({{ correosList.length }})</span>
           <a class="correos-add" (click)="addEmail()">+ Agregar</a>
         </div>
-        <div class="correo-container-edit">
+        <div class="correo-container-edit" *ngFor="let correo of correosList">
           <mat-form-field class="custom-field" appearance="outline">
             <mat-label>Correo</mat-label>
-            <input matInput placeholder="Correo" type="email">
-          </mat-form-field>
-          <div class="container-correo-icon">
-            <i class="fa-solid fa-pencil"></i>
-          </div>
-        </div>
-        <div class="correo-container-edit">
-          <mat-form-field class="custom-field" appearance="outline">
-            <mat-label>Correo</mat-label>
-            <input matInput placeholder="Correo" type="email">
-          </mat-form-field>
-          <div class="container-correo-icon">
-            <i class="fa-solid fa-pencil"></i>
-          </div>
-        </div>
-        <div class="correo-container-edit">
-          <mat-form-field class="custom-field" appearance="outline">
-            <mat-label>Correo</mat-label>
-            <input matInput placeholder="Correo" type="email">
+            <input matInput placeholder="Correo" type="email" [value]="correo">
           </mat-form-field>
           <div class="container-correo-icon">
             <i class="fa-solid fa-pencil"></i>
@@ -321,13 +303,8 @@
         </mat-form-field>
       </div>
       <div class="periocidad-days">
-        <span>D</span>
-        <span>L</span>
-        <span>M</span>
-        <span>M</span>
-        <span class="day-selected">J</span>
-        <span>V</span>
-        <span>S</span>
+        <span *ngFor="let day of weekDays" [ngClass]="{'day-selected': selectedDays.has(day.id)}"
+          (click)="toggleDay(day.id)">{{ day.letter }}</span>
       </div>
       <mat-form-field class="custom-field" appearance="outline">
         <mat-label>Fin</mat-label>
