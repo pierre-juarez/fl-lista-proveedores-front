@@ -10,57 +10,64 @@
       <i class="fa-solid fa-magnifying-glass search-icon"></i>
     </div>
   </div>
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
-    <!-- ID -->
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
-      <td mat-cell *matCellDef="let element" class="title-color">{{ element.id }}</td>
-    </ng-container>
-    <!-- Nombre -->
-    <ng-container matColumnDef="nombre">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>NOMBRE</th>
-      <td mat-cell *matCellDef="let element">{{ element.nombre }}</td>
-    </ng-container>
-    <!-- Estado -->
-    <ng-container matColumnDef="estado">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>ESTADO</th>
-      <td mat-cell *matCellDef="let element">
-        <div class="estado-container"
-          [ngClass]="{'active': element.estado === 'Activo', 'inactive': element.estado === 'Inactivo'}">
-          <i class="fa-regular"
-            [ngClass]="{'fa-circle-check': element.estado === 'Activo', 'fa-circle-xmark': element.estado === 'Inactivo'}"></i>
-          <span> {{ element.estado }} </span>
-        </div>
-      </td>
-    </ng-container>
-    <!-- Correos -->
-    <ng-container matColumnDef="correos">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>CORREOS</th>
-      <td mat-cell *matCellDef="let element">
-        <div class="mail-container">
-          <span class="mail-text"> {{ element.correos }}</span>
-          <span *ngIf="element.numberMail > 2" class="counter-mail">+{{element.numberMail - 2}}</span>
-        </div>
-      </td>
-    </ng-container>
-    <!-- Acción -->
-    <ng-container matColumnDef="accion">
-      <th mat-header-cell *matHeaderCellDef class="text-center">ACCIÓN</th>
-      <td mat-cell *matCellDef="let element" class="text-center ">
-        <button mat-icon-button [matMenuTriggerFor]="menu">
-          <i class="fa-solid fa-ellipsis-vertical black-color action-icon"></i>
-        </button>
-        <mat-menu #menu="matMenu" class="custom-menu">
-          <button mat-menu-item (click)="viewDetail(element)">
-            <i class="fa-regular fa-eye pr-12"></i> Ver detalle </button>
-          <button mat-menu-item (click)="edit(element)">
-            <i class="fa-solid fa-pencil pr-12"></i> Editar </button>
-        </mat-menu>
-      </td>
-    </ng-container>
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+  <div class="table-container">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+      <!-- ID -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+        <td mat-cell *matCellDef="let element" class="title-color">{{ element.ID_PROVEEDOR }}</td>
+      </ng-container>
+      <!-- Nombre -->
+      <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>NOMBRE</th>
+        <td mat-cell *matCellDef="let element">{{ element.NOMBRE_PROVEEDOR }}</td>
+      </ng-container>
+      <!-- Estado -->
+      <ng-container matColumnDef="estado">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>ESTADO</th>
+        <td mat-cell *matCellDef="let element">
+          <div class="estado-container"
+            [ngClass]="{'active': element.ESTADO === 'ACTIVO', 'inactive': element.ESTADO === 'INACTIVO'}">
+            <i class="fa-regular"
+              [ngClass]="{'fa-circle-check': element.ESTADO === 'ACTIVO', 'fa-circle-xmark': element.ESTADO === 'INACTIVO'}"></i>
+            <span class="status-container"> {{ element.ESTADO }} </span>
+          </div>
+        </td>
+      </ng-container>
+      <!-- Correos -->
+      <ng-container matColumnDef="correos">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>CORREOS</th>
+        <td mat-cell *matCellDef="let element">
+          <div class="mail-container" #mailContainer>
+            <ng-container
+              *ngFor="let mail of getCorreosDisplay(element.CORREO_PROVEEDOR, mailContainer.offsetWidth).visible">
+              <span class="mail-text">{{ mail }}</span>
+            </ng-container>
+            <span *ngIf="getCorreosDisplay(element.CORREO_PROVEEDOR, mailContainer.offsetWidth).count > 0"
+              class="counter-mail"> +{{ getCorreosDisplay(element.CORREO_PROVEEDOR, mailContainer.offsetWidth).count }}
+            </span>
+          </div>
+        </td>
+      </ng-container>
+      <!-- Acción -->
+      <ng-container matColumnDef="accion">
+        <th mat-header-cell *matHeaderCellDef class="text-center">ACCIÓN</th>
+        <td mat-cell *matCellDef="let element" class="text-center ">
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <i class="fa-solid fa-ellipsis-vertical black-color action-icon"></i>
+          </button>
+          <mat-menu #menu="matMenu" class="custom-menu">
+            <button mat-menu-item (click)="viewDetail(element.ID_PROVEEDOR)">
+              <i class="fa-regular fa-eye pr-12"></i> Ver detalle </button>
+            <button mat-menu-item (click)="edit(element.ID_PROVEEDOR)">
+              <i class="fa-solid fa-pencil pr-12"></i> Editar </button>
+          </mat-menu>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
   <mat-paginator [pageSizeOptions]="[ 10, 20]" showFirstLastButtons></mat-paginator>
 </div>
 <!-- Sidebar flotante fuera del container -->
@@ -90,10 +97,10 @@
       <mat-form-field appearance="outline">
         <mat-label>Proveedor</mat-label>
         <mat-select [(value)]="proveedorSeleccionado">
-          <mat-option *ngFor="let proveedor of proveedores" [value]="proveedor.id"> {{ proveedor.value }} </mat-option>
+          <mat-option *ngFor="let proveedor of dataSource.data" [value]="proveedor.ID_PROVEEDOR"> {{
+            proveedor.NOMBRE_PROVEEDOR }} </mat-option>
         </mat-select>
       </mat-form-field>
-      <p>{{ proveedores[0].value }}</p>
       <mat-form-field>
         <mat-label>Select me</mat-label>
         <mat-select>
@@ -114,7 +121,8 @@
       <mat-form-field appearance="outline">
         <mat-label>Marca</mat-label>
         <mat-select [(value)]="proveedorSeleccionado">
-          <mat-option *ngFor="let proveedor of proveedores" [value]="proveedor.id"> {{ proveedor.value }} </mat-option>
+          <mat-option *ngFor="let proveedor of dataSource.data" [value]="proveedor.ID_PROVEEDOR"> {{
+            proveedor.NOMBRE_PROVEEDOR }} </mat-option>
         </mat-select>
       </mat-form-field>
     </div>
@@ -132,8 +140,8 @@
         <mat-form-field appearance="outline">
           <mat-label>semana</mat-label>
           <mat-select [(value)]="proveedorSeleccionado">
-            <mat-option *ngFor="let proveedor of proveedores" [value]="proveedor.id"> {{ proveedor.value }}
-            </mat-option>
+            <mat-option *ngFor="let proveedor of dataSource.data" [value]="proveedor.ID_PROVEEDOR"> {{
+              proveedor.NOMBRE_PROVEEDOR }} </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -169,38 +177,37 @@
     <div class="info">
       <div class="info-contacto">
         <h4>Contacto:</h4>
-        <h4>ID: 10</h4>
+        <h4>ID: {{ proveedorSelected?.ID_PROVEEDOR }}</h4>
       </div>
-      <div class="info-status">
+      <!-- <div class="info-status">
         <div class="estado-container sidebar-status"
-          [ngClass]="{'active': isActive === true, 'inactive': isActive === false}">
-          <i class="fa-regular"
-            [ngClass]="{'fa-circle-check': isActive === true, 'fa-circle-xmark': isActive === false}"></i>
-          <span> {{ isActive ? 'Activo' : 'Inactivo' }} </span>
+          [ngClass]="{'active': proveedorSeleceted?.ESTADO === 'ACTIVO', 'inactive': proveedorSelected?.ESTADO === 'INACTIVO'}">
         </div>
-      </div>
+        <i class="fa-regular"
+          [ngClass]="{'fa-circle-check': proveedorSelected?.ESTADO === 'ACTIVO', 'fa-circle-xmark': proveedorSelected?.ESTADO === 'INACTIVO'}"></i>
+        <span> {{ proveedorSelected?.ESTADO }} </span>
+      </div> -->
+      <!-- </div> -->
     </div>
     <div class="container-data-edit">
       <div class="flex">
-        <span class="data-title">Contacto: Adidas</span>
-        <span class="data-title">ID: 01</span>
+        <span class="data-title">Contacto: {{ proveedorSelected?.NOMBRE_PROVEEDOR }}</span>
+        <span class="data-title">ID: {{ proveedorSelected?.ID_PROVEEDOR }}</span>
       </div>
       <div class="container-data-group">
         <span class="data-title">Datos del Proveedor</span>
         <div class="flex">
-          <span class="data-subtitle">ADIDAS PERU S.A.C</span>
+          <span class="data-subtitle">{{ proveedorSelected?.NOMBRE_PROVEEDOR }}</span>
           <span class="data-subtitle"><span class="data-subtitle-bold">RUC:</span> 1234567890123</span>
         </div>
       </div>
       <div class="container-data-group">
         <span class="data-title">Correos:</span>
-        <span class="data-subtitle">correo1&#64;adidas.com</span>
-        <span class="data-subtitle">correo2&#64;adidas.com</span>
-        <span class="data-subtitle">correo3&#64;adidas.com</span>
+        <span class="data-subtitle" *ngFor="let correo of correosList">{{ correo }}</span>
       </div>
       <div class="container-data-group">
         <span class="data-title">Marcas:</span>
-        <span class="data-subtitle">Adidas</span>
+        <span class="data-subtitle">{{ marcaSelected?.NOMBRE_MARCA }}</span>
       </div>
     </div>
   </div>
@@ -241,7 +248,7 @@
         <span class="data-title">Datos del Proveedor</span>
         <div class="flex">
           <span class="data-subtitle">ADIDAS PERU S.A.C</span>
-          <span class="data-subtitle"><span class="data-subtitle-bold">RUC:</span> 1234567890123</span>
+          <span class="data-subtitle"><span class="data-subtitle-bold">RUC:</span> $1234567890123$</span>
         </div>
         <span class="data-subtitle"><span class="data-subtitle-bold">Nombre:</span> Adidas</span>
       </div>
@@ -308,8 +315,8 @@
         <mat-form-field appearance="outline">
           <mat-label>semana</mat-label>
           <mat-select [(value)]="proveedorSeleccionado">
-            <mat-option *ngFor="let proveedor of proveedores" [value]="proveedor.id"> {{ proveedor.value }}
-            </mat-option>
+            <mat-option *ngFor="let proveedor of dataSource.data" [value]="proveedor.ID_PROVEEDOR"> {{
+              proveedor.NOMBRE_PROVEEDOR }} </mat-option>
           </mat-select>
         </mat-form-field>
       </div>

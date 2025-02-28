@@ -7,7 +7,7 @@ import { AuthService } from '../../../core/services/auth.service';
 
 import { MatDialog } from '@angular/material/dialog';
 import { HttpErrorResponse } from '@angular/common/http';
-import { UserService } from '../../../modules/user/services/user.service';
+import { UserService } from '../../../modules/proveedores/services/user.service';
 import { LoginDialog } from '../../dialogs/login/login-dialog.component';
 
 @Component({

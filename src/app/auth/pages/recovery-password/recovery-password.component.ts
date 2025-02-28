@@ -7,7 +7,7 @@ import { AuthService } from '../../../core/services/auth.service';
 
 import { MatDialog } from '@angular/material/dialog';
 import { HttpErrorResponse } from '@angular/common/http';
-import { UserService } from '../../../modules/user/services/user.service';
+import { UserService } from '../../../modules/proveedores/services/user.service';
 import { LoginDialog } from '../../dialogs/login/login-dialog.component';
 
 @Component({
@@ -20,11 +20,14 @@ export class RecoveryPasswordComponent {
   error: string = '';
 
   constructor(public dialog: MatDialog, private fb: FormBuilder) {
-    this.loginForm = this.fb.group({
-      code: ['', [Validators.required]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', [Validators.required]]
-    }, { validators: this.passwordsMatch });
+    this.loginForm = this.fb.group(
+      {
+        code: ['', [Validators.required]],
+        password: ['', [Validators.required, Validators.minLength(6)]],
+        confirmPassword: ['', [Validators.required]],
+      },
+      { validators: this.passwordsMatch }
+    );
   }
 
   code: string = '';
@@ -68,7 +71,7 @@ export class RecoveryPasswordComponent {
       .subscribe({
         next: () => {
           Swal.close();
-            this.router.navigateByUrl('/auth/login');
+          this.router.navigateByUrl('/auth/login');
         },
         error: (err) => {
           Swal.close();
@@ -130,7 +133,7 @@ export class RecoveryPasswordComponent {
     }
   }
 
-  onBack(){
+  onBack() {
     this.router.navigateByUrl('/auth/login');
   }
 }

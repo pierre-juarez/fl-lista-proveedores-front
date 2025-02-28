@@ -1,0 +1,27 @@
+<div class="sidebar-overlay" *ngIf="isSidebarOpen" (click)="closeSidebar()"></div>
+<div class="sidebar" *ngIf="isSidebarOpen">
+  <div class="sidebar-header">
+    <h3 class="sidebar-title">{{ title }}</h3>
+    <button class="close-btn" (click)="closeSidebar()">✖</button>
+  </div>
+  <!-- Contenido del sidebar -->
+  <div class="sidebar-body">
+    <ng-content></ng-content>
+    <!-- <form>
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre</mat-label>
+        <input matInput placeholder="Nombre del proveedor" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Correo</mat-label>
+        <input matInput type="email" placeholder="Correo del proveedor" />
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit">Guardar</button>
+    </form> -->
+  </div>
+  <!-- Footer -->
+  <mat-divider></mat-divider>
+  <div class="sidebar-footer">
+    <custom-button text="{{ buttonText }}" class="sidebar-button" (clicked)="onButtonClick()" />
+  </div>
+</div>

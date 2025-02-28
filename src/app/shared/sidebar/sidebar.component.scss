@@ -1,0 +1,47 @@
+$table-border: rgba(#a0a0a0, 0.32);
+
+.sidebar {
+  padding: 0;
+  width: 550px;
+  border-radius: 4px 0px 0 0;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.65rem 2rem;
+  background: linear-gradient(
+    to top,
+    rgba(113, 67, 181, 1),
+    rgba(39, 0, 97, 0.51)
+  );
+
+  border-radius: 4px 0px 0 0;
+
+  .sidebar-title {
+    margin: 0;
+    color: #fff;
+    font-size: 1.1875rem;
+    font-weight: 500;
+  }
+}
+
+.sidebar-body {
+  padding: 16px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.sidebar-footer {
+  padding: 2rem;
+  display: flex;
+  justify-content: end;
+}
+
+.mat-divider {
+  border-color: $table-border;
+  border-width: 0.6px;
+}

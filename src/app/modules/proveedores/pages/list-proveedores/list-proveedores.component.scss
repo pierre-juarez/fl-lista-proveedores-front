@@ -140,11 +140,17 @@ td {
   max-width: 600px;
 
   .mail-text {
+    white-space: nowrap;
+
+    display: inline;
+  }
+
+  .mail-text:last-of-type {
     flex: 1;
     min-width: 0;
-    text-overflow: ellipsis;
-    white-space: nowrap;
     overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block; // Para que funcione el truncamiento
   }
 
   .counter-mail {
@@ -155,6 +161,9 @@ td {
     padding: 6px 6.5px;
     border-radius: 6px;
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 
@@ -560,5 +569,38 @@ mat-paginator {
   .checkbox-mark-text {
     color: $title-color;
     font-weight: 500;
+  }
+}
+
+.status-container {
+  text-transform: capitalize;
+}
+
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+}
+
+@mixin responsive-table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .table-container {
+    @include responsive-table;
+  }
+
+  th,
+  td {
+    padding: 8px;
+    font-size: 14px;
   }
 }
